@@ -1,0 +1,32 @@
+﻿@model IEnumerable<ContasApp.Domain.Models.ContaCorrente>
+
+@{
+    ViewBag.Title = "Inicio";
+}
+
+<h2>Inicio</h2>
+
+<p>
+    @Html.ActionLink("Novo", "Incluir")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descricao)
+        </td>
+        <td>
+            @Html.ActionLink("Alterar", "Alterar", new { id=item.Id }) |
+            @Html.ActionLink("Excluir", "Excluir", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
