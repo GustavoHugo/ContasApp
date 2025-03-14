@@ -9,7 +9,7 @@
 <p>
     @Html.ActionLink("Novo", "Incluir")
 </p>
-<table class="table">
+<table class="table table-hover">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Descricao)
@@ -22,9 +22,9 @@
         <td>
             @Html.DisplayFor(modelItem => item.Descricao)
         </td>
-        <td>
-            @Html.ActionLink("Alterar", "Alterar", new { id=item.Id }) |
-            @Html.ActionLink("Excluir", "Excluir", new { id=item.Id })
+        <td class="comandos-tabela">
+            @Html.ActionLink("Alterar", "Alterar", new { id = item.Id }) |
+            @Html.ActionLink("Excluir", "Excluir", new { id = item.Id })
         </td>
     </tr>
 }

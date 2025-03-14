@@ -18,3 +18,10 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.comandos-tabela{
+    width:1%;
+    white-space:nowrap;
+    text-align:right;
+}
+
