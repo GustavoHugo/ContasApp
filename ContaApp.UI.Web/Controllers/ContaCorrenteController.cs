@@ -29,6 +29,44 @@ namespace ContaApp.UI.Web.Controllers
             return View(lista);
         }
 
+        public ActionResult Excluir(string id)
+        {
+            var contaCorrente = repositorio.ObterPorId(id);
+            return View(contaCorrente);
+        }
+
+        [HttpPost]
+        public ActionResult Excluir(string id, FormCollection form)
+        {
+            repositorio.Excluir(id);
+            return RedirectToAction("Inicio");
+        }
+
+
+        public ActionResult Alterar(string id)
+        {
+            var contaCorrente=repositorio.ObterPorId(id);
+            return View(contaCorrente);
+        }
+
+        [HttpPost]
+        public ActionResult Alterar(ContaCorrente contaCorrente)
+        {
+            if (string.IsNullOrEmpty(contaCorrente.Descricao))
+            {
+                ModelState.AddModelError("Descrição", "A descrição precisa ser preenchida");
+            }
+
+            if (ModelState.IsValid)
+            {
+                repositorio.Alterar(contaCorrente);
+                return RedirectToAction("Inicio");
+            }
+            return View(contaCorrente);
+            
+        }
+
+
         public ActionResult Incluir()
         {
             var contaCorrente = new ContaCorrente();

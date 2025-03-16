@@ -6,9 +6,7 @@
 
 <h2>Inicio</h2>
 
-<button class="btn btn-outline-secondary">
-    @Html.ActionLink("Novo", "Incluir")
-</button>
+<a href='@Url.Action("Incluir")' class="btn btn-outline-secondary">Novo</a>
 <table class="table table-hover">
     <tr>
         <th>
@@ -22,14 +20,10 @@
         <td>
             @Html.DisplayFor(modelItem => item.Descricao)
         </td>
-        <td class="comandos-tabela">
-            <button class="btn btn-outline-secondary">
-                @Html.ActionLink("Alterar", "Alterar", new { id = item.Id })
-            </button>
-            <button class="btn btn-outline-secondary">
-                @Html.ActionLink("Excluir", "Excluir", new { id = item.Id })
-            </button>
-</td>
+        <td>
+            <a href='@Url.Action("Alterar", new { id = item.Id })' class="btn btn-outline-secondary">Alterar</a>
+            <a href='@Url.Action("Excluir", new { id = item.Id })' class="btn btn-outline-danger">Excluir</a>
+        </td>
     </tr>
 }
 

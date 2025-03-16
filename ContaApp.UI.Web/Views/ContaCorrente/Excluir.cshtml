@@ -1,0 +1,26 @@
+﻿@model ContasApp.Domain.Models.ContaCorrente
+
+@{
+    ViewBag.Title = "Excluir";
+}
+
+<h2>Excluir Conta Corrente</h2>
+
+<h3>Confirma a exclusão deste registro?</h3>
+<div>
+    <hr />
+
+    <p>
+        <span><strong>Descrição:</strong></span>
+        <span>@Model.Descricao</span>
+    </p>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Deletar" class="btn btn-danger" />
+            <a href='@Url.Action("Inicio")' class="btn btn-outline-secondary">Voltar</a>
+        </div>
+    }
+</div>

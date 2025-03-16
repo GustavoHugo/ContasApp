@@ -1,0 +1,31 @@
+﻿@model IEnumerable<ContasApp.Domain.Models.ContaCategoria>
+
+@{
+    ViewBag.Title = "Inicio";
+}
+
+<h2>Inicio</h2>
+
+<a href='@Url.Action("Incluir")' class="btn btn-outline-secondary">Novo</a>
+<table class="table table-hover">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                <a href='@Url.Action("Alterar", new { id = item.Id })' class="btn btn-outline-secondary">Alterar</a>
+                <a href='@Url.Action("Excluir", new { id = item.Id })' class="btn btn-outline-danger">Excluir</a>
+            </td>
+        </tr>
+    }
+
+</table>

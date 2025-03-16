@@ -22,12 +22,31 @@ namespace ContasApp.Repository
 
         public void Incluir(Contato contato)
         {
-            Db.Execute("ContatoIncluir", contato);
+            if (contato is Empresa) 
+            {
+                Db.Execute("ContatoEmpresaIncluir", contato);
+            }
+            else 
+            { 
+                Db.Execute("ContatoPessoaIncluir", contato);
+            }
         }
 
         public Contato ObterPorId(string id)
         {
-            return Db.QueryEntidade<Contato>("ContatoObterPorId", new {Id=@id});
+            var contato = Db.QueryEntidade<Contato>("ContatoObterPorId", new {Id=@id});
+
+            if (contato.Tipo == PessoaFisicaJuridica.PessoaJuridica) 
+            {
+                var empresa = Db.QueryEntidade<Empresa>("ContatoObterPorId", new { Id = @id });
+                return empresa;
+            }
+            else
+            {
+                var pessoa = Db.QueryEntidade<Pessoa>("ContatoObterPorId", new { Id = @id });
+                return pessoa;
+            }
+
         }
 
         public IEnumerable<Contato> ObterTodos(string usuarioId)

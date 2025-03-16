@@ -1,4 +1,4 @@
-﻿@model ContasApp.Domain.Models.ContaCorrente
+﻿@model ContasApp.Domain.Models.ContaCategoria
 
 @{
     ViewBag.Title = "Incluir";
@@ -6,24 +6,24 @@
 
 <h2>Incluir</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>ContaCorrente</h4>
+        <h4>Categoria de Conta</h4>
         <hr />
         @Html.ValidationSummary(false, "", new { @class = "text-danger" })
         <div class="form-text">
-            @Html.LabelFor(model => model.Descricao,"Descrição", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Nome, "Nome", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Descricao, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
             </div>
         </div>
 
         <div class="form-text">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Incluir" class="btn btn-outline-success" /> 
+                <input type="submit" value="Incluir" class="btn btn-outline-success" />
                 <a href='@Url.Action("Inicio")' class="btn btn-outline-secondary">Voltar</a>
             </div>
         </div>
