@@ -12,7 +12,14 @@ namespace ContasApp.Repository
     {
         public void Alterar(Contato contato)
         {
-            Db.Execute("ContatoAlterar", contato);
+            if (contato is Empresa)
+            {
+                Db.Execute("ContatoEmpresaAlterar", contato);
+            }
+            else
+            {
+                Db.Execute("ContatoPessoaAlterar", contato);
+            }
         }
 
         public void Excluir(string id)

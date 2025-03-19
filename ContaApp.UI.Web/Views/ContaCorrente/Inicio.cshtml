@@ -4,7 +4,7 @@
     ViewBag.Title = "Inicio";
 }
 
-<h2>Inicio</h2>
+<h2>Conta Corrente</h2>
 
 <a href='@Url.Action("Incluir")' class="btn btn-outline-secondary">Novo</a>
 <table class="table table-hover">
@@ -21,7 +21,7 @@
             @Html.DisplayFor(modelItem => item.Descricao)
         </td>
         <td>
-            <a href='@Url.Action("Alterar", new { id = item.Id })' class="btn btn-outline-secondary">Alterar</a>
+            <a href='@Url.Action("Alterar", new { id = item.Id })' class="btn btn-outline-primary">Alterar</a>
             <a href='@Url.Action("Excluir", new { id = item.Id })' class="btn btn-outline-danger">Excluir</a>
         </td>
     </tr>

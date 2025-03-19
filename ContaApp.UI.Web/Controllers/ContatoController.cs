@@ -20,6 +20,14 @@ namespace ContaApp.UI.Web.Controllers
             usuario = AppHelper.ObterUsuarioLogado();
         }
 
+        public ActionResult Inicio()
+        {
+            if (usuario == null) return RedirectToAction("Login", "App");
+            var lista = repositorio.ObterTodos(usuario.Id);
+            return View(lista);
+        }
+
+
         public ActionResult Incluir() 
         {
             var contato = new ContatoViewModel();
@@ -51,7 +59,7 @@ namespace ContaApp.UI.Web.Controllers
                     contato.Tipo = PessoaFisicaJuridica.PessoaJuridica;
                 }
                 contato.UsuarioId=usuario.Id;
-                contato.Id=Guid.NewGuid().ToString();
+                contato.Id = Guid.NewGuid().ToString();
                 contato.Nome = contatoViewModel.Nome;
                 contato.Telefone = contatoViewModel.Telefone;
                 contato.Email = contatoViewModel.Email;
@@ -84,8 +92,82 @@ namespace ContaApp.UI.Web.Controllers
                 contatoViewModel.DataNascimento = ((Pessoa)contato).DataNascimento;
             }
 
-            return View(contato);
+            return View(contatoViewModel);
         }
 
+        [HttpPost]
+        public ActionResult Alterar(ContatoViewModel contatoViewModel)
+        {
+            if (string.IsNullOrEmpty(contatoViewModel.Nome))
+            {
+                ModelState.AddModelError("Nome", "O nome deve ser informado");
+            }
+            if (ModelState.IsValid)
+            {
+                Contato contato;
+                if (contatoViewModel.Tipo == PessoaFisicaJuridica.PessoaFisica)
+                {
+                    contato = new Pessoa();
+                    ((Pessoa)contato).RG = contatoViewModel.RG;
+                    ((Pessoa)contato).CPF = contatoViewModel.CPF;
+                    ((Pessoa)contato).DataNascimento = contatoViewModel.DataNascimento;
+                    contato.Tipo = PessoaFisicaJuridica.PessoaFisica;
+                }
+                else
+                {
+                    contato = new Empresa();
+                    ((Empresa)contato).CNPJ = contatoViewModel.CNPJ;
+                    contato.Tipo = PessoaFisicaJuridica.PessoaJuridica;
+                }
+                contato.UsuarioId = usuario.Id;
+                contato.Id = contatoViewModel.Id;
+                contato.Nome = contatoViewModel.Nome;
+                contato.Telefone = contatoViewModel.Telefone;
+                contato.Email = contatoViewModel.Email;
+
+                repositorio.Alterar(contato);
+                return RedirectToAction("Inicio");
+            }
+
+            return View(contatoViewModel);
+        }
+
+        public ActionResult Excluir(string id) 
+        {
+
+            var contato = repositorio.ObterPorId(id);
+            var contatoViewModel = new ContatoViewModel()
+            {
+                Email = contato.Email,
+                Nome = contato.Nome,
+                Id = contato.Id,
+                Telefone = contato.Telefone
+            };
+            if (contato is Empresa)
+            {
+                contatoViewModel.CNPJ = ((Empresa)contato).CNPJ;
+                contatoViewModel.Tipo = PessoaFisicaJuridica.PessoaJuridica;
+            }
+            else
+            {
+                contatoViewModel.CPF = ((Pessoa)contato).CPF;
+                contatoViewModel.RG = ((Pessoa)contato).RG;
+                contatoViewModel.DataNascimento = ((Pessoa)contato).DataNascimento;
+                contatoViewModel.Tipo = PessoaFisicaJuridica.PessoaFisica;
+            }
+
+            return View(contatoViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Excluir(string id, FormCollection form)
+        {
+            repositorio.Excluir(id);
+            return RedirectToAction("Inicio");
+        }
+
+
     }
+
+
 }

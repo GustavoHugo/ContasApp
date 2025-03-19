@@ -1,16 +1,22 @@
-﻿@model IEnumerable<ContasApp.Domain.Models.ContaCategoria>
+﻿@model IEnumerable<ContasApp.Domain.Models.Contato>
 
 @{
     ViewBag.Title = "Inicio";
 }
 
-<h2>Conta Categoria</h2>
+<h2>Contatos</h2>
 
 <a href='@Url.Action("Incluir")' class="btn btn-outline-secondary">Novo</a>
-<table class="table table-hover">
+<table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Nome)
+            Nome
+        </th>
+        <th>
+            Email
+        </th>
+        <th>
+            Telefone
         </th>
         <th></th>
     </tr>
@@ -20,6 +26,12 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Telefone)
             </td>
             <td>
                 <a href='@Url.Action("Alterar", new { id = item.Id })' class="btn btn-outline-primary">Alterar</a>

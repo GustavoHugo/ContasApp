@@ -210,6 +210,9 @@
     <Content Include="Views\ContaCategoria\Excluir.cshtml" />
     <Content Include="Views\ContaCategoria\Incluir.cshtml" />
     <Content Include="Views\Contato\Incluir.cshtml" />
+    <Content Include="Views\Contato\Inicio.cshtml" />
+    <Content Include="Views\Contato\Alterar.cshtml" />
+    <Content Include="Views\Contato\Excluir.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
