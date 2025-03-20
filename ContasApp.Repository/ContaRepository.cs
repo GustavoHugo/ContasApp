@@ -15,6 +15,11 @@ namespace ContasApp.Repository
             Db.Execute("ContaAlterar", conta);
         }
 
+        public ContaExibirViewModel ObterExibirPorId(string id)
+        {
+            return Db.QueryEntidade<ContaExibirViewModel>("ContaObterExibirPorId", new { Id = @id });
+        }
+
         public void Excluir(string id)
         {
             Db.Execute("ContaExcluir", new { Id = @id });
@@ -25,14 +30,14 @@ namespace ContasApp.Repository
             Db.Execute("ContaIncluir", conta);
         }
 
-        public IEnumerable<Conta> ObterPorFiltro(ContaFiltro filtro)
-        {
-            throw new NotImplementedException();
-        }
-
         public Conta ObterPorId(string id)
         {
             return Db.QueryEntidade<Conta>("ContaObterPorId", new { Id = id });
+        }
+
+        public IEnumerable<ContaListItem> ObterPorUsuario(string usuarioId)
+        {
+            return Db.QueryColecao<ContaListItem>("ContaObterTodos", new {UsuarioId=@usuarioId });
         }
 
         public IEnumerable<Conta> ObterTodos(string usuarioId)
@@ -43,6 +48,16 @@ namespace ContasApp.Repository
         public IEnumerable<string> Validar()
         {
             throw new NotImplementedException();
+        }
+
+        IEnumerable<ContaListItem> ObterPorFiltro(ContaFiltro filtro)
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerable<ContaListItem> IContaRepository.ObterPorFiltro(ContaFiltro filtro)
+        {
+            return ObterPorFiltro(filtro);
         }
     }
 }

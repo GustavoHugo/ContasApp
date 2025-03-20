@@ -123,6 +123,7 @@
     <Compile Include="Code\AppHelper.cs" />
     <Compile Include="Controllers\AppController.cs" />
     <Compile Include="Controllers\ContaCategoriaController.cs" />
+    <Compile Include="Controllers\ContaController.cs" />
     <Compile Include="Controllers\ContaCorrenteController.cs" />
     <Compile Include="Controllers\ContatoController.cs" />
     <Compile Include="Global.asax.cs">
@@ -213,6 +214,10 @@
     <Content Include="Views\Contato\Inicio.cshtml" />
     <Content Include="Views\Contato\Alterar.cshtml" />
     <Content Include="Views\Contato\Excluir.cshtml" />
+    <Content Include="Views\Conta\Inicio.cshtml" />
+    <Content Include="Views\Conta\Incluir.cshtml" />
+    <Content Include="Views\Conta\Alterar.cshtml" />
+    <Content Include="Views\Conta\Excluir.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -15,7 +15,10 @@
         <span>@Model.Descricao</span>
     </p>
 
-    @using (Html.BeginForm()) {
+    <br />
+
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">

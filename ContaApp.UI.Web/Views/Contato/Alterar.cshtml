@@ -83,10 +83,12 @@
         <div class="form-text">
             @Html.LabelFor(model => model.DataNascimento, "Data de Nascimento", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DataNascimento, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.DataNascimento, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
             </div>
         </div>
     </div>
+
+    <br />
 
     <div class="form-text">
         <div class="col-md-offset-2 col-md-10">

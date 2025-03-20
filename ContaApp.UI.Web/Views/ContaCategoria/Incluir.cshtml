@@ -10,22 +10,24 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>Categoria de Conta</h4>
-        <hr />
-        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
-        <div class="form-text">
-            @Html.LabelFor(model => model.Nome, "Nome", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
-            </div>
-        </div>
-
-        <div class="form-text">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Incluir" class="btn btn-outline-primary" />
-                <a href='@Url.Action("Inicio")' class="btn btn-outline-secondary">Voltar</a>
-            </div>
+<div class="form-horizontal">
+    <h4>Categoria de Conta</h4>
+    <hr />
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+    <div class="form-text">
+        @Html.LabelFor(model => model.Nome, "Nome", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
         </div>
     </div>
+
+    <br />
+
+    <div class="form-text">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Incluir" class="btn btn-outline-primary" />
+            <a href='@Url.Action("Inicio")' class="btn btn-outline-secondary">Voltar</a>
+        </div>
+    </div>
+</div>
 }

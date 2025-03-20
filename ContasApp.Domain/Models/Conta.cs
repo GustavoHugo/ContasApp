@@ -13,10 +13,9 @@ namespace ContasApp.Domain.Models
         public string UsuarioId { get; set; }
         public string ContaCorrenteId { get; set; }
         public PagarReceber Tipo { get; set; }
-        public string CategoriaId { get; set; }
+        public string ContaCategoriaId { get; set; }
         public string ContatoId { get; set; }
         public string Descricao { get; set; }
-        public string Vencimento { get; set; }
         public DateTime DataVencimento { get; set; }
         public decimal Valor { get; set; }
         public DateTime? DataPagamento { get; set; }

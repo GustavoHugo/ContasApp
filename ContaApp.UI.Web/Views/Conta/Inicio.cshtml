@@ -1,0 +1,56 @@
+﻿@model IEnumerable<ContasApp.Domain.Models.ContaListItem>
+
+@{
+    ViewBag.Title = "Inicio";
+}
+
+<h2>Conta</h2>
+
+<p>
+    <a href='@Url.Action("Incluir")' class="btn btn-outline-secondary">Novo</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Data)
+        </th>
+        <th>
+            Descrição
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Contato)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Categoria)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Valor)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @item.Data.ToShortDateString()
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descricao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Contato)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Categoria)
+        </td>
+        <td>
+            @item.Valor.ToString("c")
+        </td>
+        <td>
+            <a href='@Url.Action("Alterar", new { id = item.Id })' class="btn btn-outline-primary">Alterar</a>
+            <a href='@Url.Action("Excluir", new { id = item.Id })' class="btn btn-outline-danger">Excluir</a>
+        </td>
+    </tr>
+}
+
+</table>

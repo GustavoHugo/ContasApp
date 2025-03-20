@@ -14,7 +14,7 @@ namespace ContasApp.Domain.Models
         public string Descricao { get; set; }
         public string Contato { get; set; } 
         public string Categoria { get; set; }   
-        public string Valor {  get; set; }  
+        public decimal Valor {  get; set; }  
 
 
     }

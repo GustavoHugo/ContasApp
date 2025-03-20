@@ -1,0 +1,114 @@
+﻿@model ContasApp.Domain.Models.ContaViewModel
+@using ContasApp.Domain.Models
+
+
+@{
+    ViewBag.Title = "Alterar";
+}
+
+<h2>Alterar</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Dados da Conta</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @Html.HiddenFor(m => m.ContaInstancia.Id)
+
+        <div class="form-text">
+            @Html.LabelFor(model => model.ContaInstancia.ContaCorrenteId, "Conta Corrente", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ContaInstancia.ContaCorrenteId, new SelectList(Model.ContaCorrenteList, "Id", "Descricao", Model.ContaInstancia.ContaCorrenteId), new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-text">
+            <label class="control-label col-md-2">Tipo</label>
+            <div class="col-md-10">
+                <select id="ContaInstancia_Tipo" name="ContaInstancia.Tipo" class="form-control" style="width:100px">
+                    <option value="1" @if (Model.ContaInstancia.Tipo == PagarReceber.Pagar) { Html.Raw("  selected  "); }>Pagar</option>
+                    <option value="2" @if (Model.ContaInstancia.Tipo == PagarReceber.Receber) { Html.Raw("  selected  "); }>Receber</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-text">
+            @Html.LabelFor(model => model.ContaInstancia.ContaCategoriaId, "Categoria", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ContaInstancia.ContaCategoriaId, new SelectList(Model.ContaCategoriaList, "Id", "Nome", Model.ContaInstancia.ContaCategoriaId), new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-text">
+            @Html.LabelFor(model => model.ContaInstancia.ContatoId, "Contato", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ContaInstancia.ContatoId, new SelectList(Model.ContatoList, "Id", "Nome", Model.ContaInstancia.ContatoId), new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-text">
+            @Html.LabelFor(model => model.ContaInstancia.DataVencimento, "Vencimento", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ContaInstancia.DataVencimento, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+            </div>
+        </div>
+
+        <div class="form-text">
+            @Html.LabelFor(model => model.ContaInstancia.Descricao, "Descrição", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ContaInstancia.Descricao, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-text">
+            @Html.LabelFor(model => model.ContaInstancia.Valor, "Valor", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ContaInstancia.Valor, new { htmlAttributes = new { @class = "form-control", style = "width:100px; text-align:right" } })
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="form-text">
+            @Html.LabelFor(model => model.ContaInstancia.DataPagamento, "Data de Pagamento", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ContaInstancia.DataPagamento, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+            </div>
+        </div>
+
+        <div class="form-text">
+            @Html.LabelFor(model => model.ContaInstancia.Acrescimo, "Acrescimo", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ContaInstancia.Acrescimo, new { htmlAttributes = new { @class = "form-control", style = "width:100px; text-align:right" } })
+            </div>
+        </div>
+
+        <div class="form-text">
+            @Html.LabelFor(model => model.ContaInstancia.Desconto, "Desconto", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ContaInstancia.Desconto, new { htmlAttributes = new { @class = "form-control", style = "width:100px; text-align:right" } })
+            </div>
+        </div>
+
+        <div class="form-text">
+            @Html.LabelFor(model => model.ContaInstancia.ValorPago, "Valor Pago", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ContaInstancia.ValorPago, new { htmlAttributes = new { @class = "form-control", style = "width:100px; text-align:right" } })
+            </div>
+        </div>
+
+        <br />
+
+        <div class="form-text">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Alterar" class="btn btn-outline-primary" />
+                <a href='@Url.Action("Inicio")' class="btn btn-outline-secondary">Voltar</a>
+            </div>
+        </div>
+    </div>
+}
+
