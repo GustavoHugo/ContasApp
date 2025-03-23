@@ -37,7 +37,7 @@ namespace ContasApp.Repository
 
         public IEnumerable<ContaListItem> ObterPorUsuario(string usuarioId)
         {
-            return Db.QueryColecao<ContaListItem>("ContaObterTodos", new {UsuarioId=@usuarioId });
+            return Db.QueryColecao<ContaListItem>("ContaObterTodos", new { UsuarioId = @usuarioId });
         }
 
         public IEnumerable<Conta> ObterTodos(string usuarioId)
@@ -52,7 +52,29 @@ namespace ContasApp.Repository
 
         IEnumerable<ContaListItem> ObterPorFiltro(ContaFiltro filtro)
         {
-            throw new NotImplementedException();
+            if (filtro.DataInicial == DateTime.MinValue) filtro.DataInicial = new DateTime(1753,1,1);
+            if (filtro.DataFinal == DateTime.MinValue) filtro.DataFinal = new DateTime(9999,12,31);
+
+            var lista = Db.QueryColecao<ContaListItem>("ContaObterEntreDatas",
+                new
+                {
+                    DataInicial = filtro.DataInicial,
+                    DataFinal = filtro.DataFinal,
+                    UsuarioId = filtro.UsuarioId,
+                }).ToList();
+
+            var listaFiltrada = lista.ToList();
+
+            if (filtro.ContaCorrenteId != null)
+            {
+                listaFiltrada = listaFiltrada.ToList().Where(m => m.ContaCorrenteId == filtro.ContaCorrenteId).ToList();
+            }
+            if(filtro.ContaCategoriaId != null)
+            {
+                listaFiltrada = listaFiltrada.ToList().Where(m => m.ContaCategoriaId == filtro.ContaCategoriaId).ToList();
+            }
+
+            return listaFiltrada;
         }
 
         IEnumerable<ContaListItem> IContaRepository.ObterPorFiltro(ContaFiltro filtro)

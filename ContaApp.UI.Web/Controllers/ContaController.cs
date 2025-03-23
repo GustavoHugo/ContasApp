@@ -32,11 +32,46 @@ namespace ContaApp.UI.Web.Controllers
             usuario = AppHelper.ObterUsuarioLogado();
         }
 
+        private void PreencherContaListViewModel(ContaListViewModel viewModel)
+        {
+            var catRep = AppHelper.ObterContaCategoriaRepository();
+            viewModel.CategoriaList = catRep.ObterTodos(usuario.Id).ToList();
+
+            var contaCorrenteRep = AppHelper.ObterContaCorrenteRepository();
+            viewModel.ContaCorrenteList = contaCorrenteRep.ObterTodos(usuario.Id).ToList();
+
+            viewModel.CategoriaList.Insert(0, new ContaCategoria() { Id = string.Empty, Nome = string.Empty });
+            viewModel.ContaCorrenteList.Insert(0, new ContaCorrente() { Id = string.Empty, Descricao = string.Empty });
+        }
+
         public ActionResult Inicio()
         {
             if (usuario == null) return RedirectToAction("Login", "App");
-            var lista = repositorio.ObterPorUsuario(usuario.Id);
-            return View(lista);
+
+            var viewModel = new ContaListViewModel();
+            viewModel.Filtro.DataInicial = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            viewModel.Filtro.DataFinal = DateTime.Now;
+            viewModel.Filtro.UsuarioId = usuario.Id;
+
+            viewModel.ContaList = repositorio.ObterPorFiltro(viewModel.Filtro).ToList();
+
+            PreencherContaListViewModel(viewModel);
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Inicio(ContaListViewModel viewModel)
+        {
+            if (usuario == null) return RedirectToAction("Login", "App");
+
+            viewModel.Filtro.UsuarioId = usuario.Id;
+
+            viewModel.ContaList = repositorio.ObterPorFiltro(viewModel.Filtro).ToList();
+
+            PreencherContaListViewModel(viewModel);
+
+            return View(viewModel);
         }
 
         public ActionResult Incluir()
@@ -60,12 +95,12 @@ namespace ContaApp.UI.Web.Controllers
                 repositorio.Incluir(viewModel.ContaInstancia);
                 return RedirectToAction("Inicio");
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.Message);
             }
             PreencherViewModel(viewModel);
-            return View(viewModel); 
+            return View(viewModel);
         }
 
         public ActionResult Alterar(string id)

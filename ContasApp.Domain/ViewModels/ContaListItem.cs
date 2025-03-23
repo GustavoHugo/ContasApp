@@ -15,6 +15,9 @@ namespace ContasApp.Domain.Models
         public string Contato { get; set; } 
         public string Categoria { get; set; }   
         public decimal Valor {  get; set; }  
+        public string ContaCategoriaId { get; set; }
+        public string ContaCorrenteId { get; set; }
+
 
 
     }
